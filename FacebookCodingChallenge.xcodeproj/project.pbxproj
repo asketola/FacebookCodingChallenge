@@ -14,6 +14,8 @@
 		79CB3CD01ACDE03500AA2CFB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79CB3CCF1ACDE03500AA2CFB /* Images.xcassets */; };
 		79CB3CD31ACDE03500AA2CFB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79CB3CD11ACDE03500AA2CFB /* LaunchScreen.xib */; };
 		79CB3CDF1ACDE03500AA2CFB /* FacebookCodingChallengeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB3CDE1ACDE03500AA2CFB /* FacebookCodingChallengeTests.m */; };
+		79CB3CEA1ACDE97400AA2CFB /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB3CE91ACDE97400AA2CFB /* ImageViewController.m */; };
+		79CB3CED1ACDE9B000AA2CFB /* DoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CB3CEC1ACDE9B000AA2CFB /* DoneViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,10 @@
 		79CB3CD81ACDE03500AA2CFB /* FacebookCodingChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FacebookCodingChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79CB3CDD1ACDE03500AA2CFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79CB3CDE1ACDE03500AA2CFB /* FacebookCodingChallengeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FacebookCodingChallengeTests.m; sourceTree = "<group>"; };
+		79CB3CE81ACDE97400AA2CFB /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
+		79CB3CE91ACDE97400AA2CFB /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
+		79CB3CEB1ACDE9B000AA2CFB /* DoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoneViewController.h; sourceTree = "<group>"; };
+		79CB3CEC1ACDE9B000AA2CFB /* DoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoneViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +92,10 @@
 				79CB3CC91ACDE03500AA2CFB /* ViewController.h */,
 				79CB3CCA1ACDE03500AA2CFB /* ViewController.m */,
 				79CB3CCC1ACDE03500AA2CFB /* Main.storyboard */,
+				79CB3CEB1ACDE9B000AA2CFB /* DoneViewController.h */,
+				79CB3CEC1ACDE9B000AA2CFB /* DoneViewController.m */,
+				79CB3CE81ACDE97400AA2CFB /* ImageViewController.h */,
+				79CB3CE91ACDE97400AA2CFB /* ImageViewController.m */,
 				79CB3CCF1ACDE03500AA2CFB /* Images.xcassets */,
 				79CB3CD11ACDE03500AA2CFB /* LaunchScreen.xib */,
 				79CB3CC21ACDE03500AA2CFB /* Supporting Files */,
@@ -221,7 +231,9 @@
 			files = (
 				79CB3CCB1ACDE03500AA2CFB /* ViewController.m in Sources */,
 				79CB3CC81ACDE03500AA2CFB /* AppDelegate.m in Sources */,
+				79CB3CEA1ACDE97400AA2CFB /* ImageViewController.m in Sources */,
 				79CB3CC51ACDE03500AA2CFB /* main.m in Sources */,
+				79CB3CED1ACDE9B000AA2CFB /* DoneViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
