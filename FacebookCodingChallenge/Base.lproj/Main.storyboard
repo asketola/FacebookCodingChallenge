@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4Xj-yv-eW7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4Xj-yv-eW7">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -64,6 +64,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Le0-o9-uPn"/>
+                    <connections>
+                        <outlet property="loginToFbButton" destination="8a1-4U-89x" id="IpB-dt-WMP"/>
+                        <outlet property="uploadImagesButton" destination="RXE-M5-9I2" id="9uL-WS-IxV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -98,18 +102,19 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="uploadToFBButtonPressed:" destination="J2r-Hr-giu" eventType="touchUpInside" id="8gW-vt-bvd"/>
                                     <segue destination="r1X-Nn-U25" kind="show" identifier="SHOW_DONE_PAGE" id="Nes-eN-37o"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQO-Sf-Ky4">
-                                <rect key="frame" x="16" y="232" width="136" height="136"/>
+                            <button opaque="NO" contentMode="scaleAspectFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQO-Sf-Ky4">
+                                <rect key="frame" x="16" y="211" width="233" height="178"/>
                                 <color key="backgroundColor" red="1" green="0.63851808320000003" blue="0.96549152839999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="LRw-bt-Vxk"/>
                                     <constraint firstAttribute="height" constant="75" id="tOM-QV-8RU"/>
                                     <constraint firstAttribute="width" secondItem="iQO-Sf-Ky4" secondAttribute="height" multiplier="1:1" id="zSn-PA-NK1"/>
                                 </constraints>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Button" image="Unknown.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -117,30 +122,42 @@
                                         <exclude reference="tOM-QV-8RU"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="imageButton1Pressed:" destination="J2r-Hr-giu" eventType="touchUpInside" id="X7A-k3-pDt"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ipn-rH-o9N">
-                                <rect key="frame" x="448" y="232" width="136" height="136"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ipn-rH-o9N">
+                                <rect key="frame" x="739" y="211" width="233" height="178"/>
                                 <color key="backgroundColor" red="0.94260946339999996" green="0.79453824470000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="imageButton2Pressed:" destination="J2r-Hr-giu" eventType="touchUpInside" id="jKq-1h-kU0"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWc-pL-qAz">
-                                <rect key="frame" x="304" y="232" width="136" height="136"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWc-pL-qAz">
+                                <rect key="frame" x="498" y="211" width="233" height="178"/>
                                 <color key="backgroundColor" red="1" green="0.72706786379999999" blue="0.83510762849999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="imageButton3Pressed:" destination="J2r-Hr-giu" eventType="touchUpInside" id="8se-g2-K1V"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Wa-Ws-2Iy">
-                                <rect key="frame" x="160" y="232" width="136" height="136"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Wa-Ws-2Iy">
+                                <rect key="frame" x="257" y="211" width="233" height="178"/>
                                 <color key="backgroundColor" red="0.92549019610000005" green="0.72941176470000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="imageButton4Pressed:" destination="J2r-Hr-giu" eventType="touchUpInside" id="8Zj-P4-90C"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to add a photo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lh4-6F-rcV">
-                                <rect key="frame" x="227" y="203" width="146" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tap to add a photo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lh4-6F-rcV">
+                                <rect key="frame" x="227" y="182" width="146" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -172,6 +189,13 @@
                             <constraint firstItem="Ipn-rH-o9N" firstAttribute="leading" secondItem="zWc-pL-qAz" secondAttribute="trailing" constant="8" id="tY3-0h-s4j"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="button1" destination="iQO-Sf-Ky4" id="Hky-K0-Uc5"/>
+                        <outlet property="button2" destination="Ipn-rH-o9N" id="SXO-Ay-Fr0"/>
+                        <outlet property="button3" destination="zWc-pL-qAz" id="UFU-ru-Nwx"/>
+                        <outlet property="button4" destination="1Wa-Ws-2Iy" id="Pvf-w7-eWc"/>
+                        <outlet property="uploadToFbButton" destination="sJ8-UQ-275" id="qle-hM-oFQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8gh-WB-f4b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -200,6 +224,9 @@
                                 <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="doneButtonPressed:" destination="r1X-Nn-U25" eventType="touchUpInside" id="EtJ-eU-tAL"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You're done! :D" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hda-5T-fWh">
                                 <rect key="frame" x="241" y="289" width="118" height="21"/>
@@ -224,6 +251,9 @@
                             <constraint firstAttribute="centerX" secondItem="hda-5T-fWh" secondAttribute="centerX" id="kaf-Tn-vYD"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="doneButton" destination="KD2-yg-m3r" id="GEj-iO-ITg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VLa-pR-c9K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -249,4 +279,7 @@
             <point key="canvasLocation" x="880" y="1090"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Unknown.png" width="178" height="178"/>
+    </resources>
 </document>

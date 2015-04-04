@@ -19,9 +19,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+  _uploadImagesButton.layer.cornerRadius = 10.0;
+  _loginToFbButton.layer.cornerRadius = 10.0;
+  
     FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
     loginButton.center = self.view.center;
     [self.view addSubview:loginButton];
+  
+  
 }
 
 - (void)didReceiveMemoryWarning {

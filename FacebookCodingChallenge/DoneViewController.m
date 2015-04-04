@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+  _doneButton.layer.cornerRadius = 10.0;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,5 +34,9 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (IBAction)doneButtonPressed:(id)sender {
+  
+} // close doneButton action
 
 @end

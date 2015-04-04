@@ -9,5 +9,29 @@
 #import <UIKit/UIKit.h>
 
 @interface ImageViewController : UIViewController
+<UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
+
+{
+  __weak IBOutlet UIButton *button1;
+  __weak IBOutlet UIButton *button2;
+  __weak IBOutlet UIButton *button3;
+  __weak IBOutlet UIButton *button4;
+  __weak IBOutlet UIButton *uploadToFbButton;
+  
+  __weak IBOutlet UIImage *imageThumbnail1;
+  __weak IBOutlet UIImage *imageThumbnail2;
+  __weak IBOutlet UIImage *imageThumbnail3;
+  __weak IBOutlet UIImage *imageThumbnail4;
+}
+
+@property (nonatomic) UIImagePickerControllerSourceType *sourceTypeForPicker;
+@property (nonatomic) UIImage *imageNumber;
+@property (nonatomic) UIImage *image;
+
+- (IBAction)imageButton1Pressed:(id)sender;
+- (IBAction)imageButton2Pressed:(id)sender;
+- (IBAction)imageButton3Pressed:(id)sender;
+- (IBAction)imageButton4Pressed:(id)sender;
+
 
 @end
