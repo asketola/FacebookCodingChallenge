@@ -106,7 +106,7 @@
                                     <segue destination="r1X-Nn-U25" kind="show" identifier="SHOW_DONE_PAGE" id="Nes-eN-37o"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleAspectFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQO-Sf-Ky4">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQO-Sf-Ky4">
                                 <rect key="frame" x="16" y="211" width="233" height="178"/>
                                 <color key="backgroundColor" red="1" green="0.63851808320000003" blue="0.96549152839999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -114,7 +114,8 @@
                                     <constraint firstAttribute="height" constant="75" id="tOM-QV-8RU"/>
                                     <constraint firstAttribute="width" secondItem="iQO-Sf-Ky4" secondAttribute="height" multiplier="1:1" id="zSn-PA-NK1"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="Unknown.png">
+                                <state key="normal" title="Button1">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -129,7 +130,8 @@
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ipn-rH-o9N">
                                 <rect key="frame" x="739" y="211" width="233" height="178"/>
                                 <color key="backgroundColor" red="0.94260946339999996" green="0.79453824470000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Button2">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -139,7 +141,8 @@
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWc-pL-qAz">
                                 <rect key="frame" x="498" y="211" width="233" height="178"/>
                                 <color key="backgroundColor" red="1" green="0.72706786379999999" blue="0.83510762849999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Button3">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -149,7 +152,8 @@
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Wa-Ws-2Iy">
                                 <rect key="frame" x="257" y="211" width="233" height="178"/>
                                 <color key="backgroundColor" red="0.92549019610000005" green="0.72941176470000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Button4">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -279,7 +283,4 @@
             <point key="canvasLocation" x="880" y="1090"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Unknown.png" width="178" height="178"/>
-    </resources>
 </document>

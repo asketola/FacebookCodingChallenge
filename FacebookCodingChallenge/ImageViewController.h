@@ -18,14 +18,11 @@
   __weak IBOutlet UIButton *button4;
   __weak IBOutlet UIButton *uploadToFbButton;
   
-  __weak IBOutlet UIImage *imageThumbnail1;
-  __weak IBOutlet UIImage *imageThumbnail2;
-  __weak IBOutlet UIImage *imageThumbnail3;
-  __weak IBOutlet UIImage *imageThumbnail4;
 }
 
-@property (nonatomic) UIImagePickerControllerSourceType *sourceTypeForPicker;
+@property (nonatomic) UIImagePickerControllerSourceType sourceTypeForPicker;
 @property (nonatomic) UIImage *imageNumber;
+@property (nonatomic, assign) int buttonNumber;
 @property (nonatomic) UIImage *image;
 
 - (IBAction)imageButton1Pressed:(id)sender;
