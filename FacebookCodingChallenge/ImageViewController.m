@@ -47,12 +47,25 @@
   
   // check to see what device our user has and have them pick which source from the actionSheet
   if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Please Select Photo Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Photo Gallery", @"Camera", nil];
-    [actionSheet showInView:self.view];
-     imagePicker.sourceType = _sourceTypeForPicker;
-    [imagePicker setDelegate:self];
+    UIAlertController * view = [UIAlertController alertControllerWithTitle:nil message:@"Please Select Photo Source" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction* Camera = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+      imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+      [imagePicker setDelegate:self];
+      [self presentViewController:imagePicker animated:YES completion:nil];
+    }];
+    UIAlertAction* PhotoGallery = [UIAlertAction actionWithTitle:@"Photo Gallery" style: UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+      imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+      [imagePicker setDelegate:self];
+      [self presentViewController:imagePicker animated:YES completion:nil];
+    }];
+    UIAlertAction* Cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+      [view dismissViewControllerAnimated:YES completion:nil];
+    }];
     
-    [self presentViewController:imagePicker animated:YES completion:nil];
+    [view addAction:Camera];
+    [view addAction:PhotoGallery];
+    [view addAction:Cancel];
+    [self presentViewController:view animated:YES completion:nil];
     
   } else {
     // if no camera, set source to PhotoLibrary
@@ -62,8 +75,6 @@
   }
   
   _buttonNumber = 1;
-//  [button1 setBackgroundImage:_image forState:UIControlStateNormal];
-  
 } // end button1 action
 
 - (IBAction)imageButton2Pressed:(id)sender {
@@ -71,12 +82,25 @@
   
   // check to see what device our user has and have them pick which source from the actionSheet
   if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Please Select Photo Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Photo Gallery", @"Camera", nil];
-    [actionSheet showInView:self.view];
-    imagePicker.sourceType = _sourceTypeForPicker;
-    [imagePicker setDelegate:self];
+    UIAlertController * view = [UIAlertController alertControllerWithTitle:nil message:@"Please Select Photo Source" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction* Camera = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+      imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+      [imagePicker setDelegate:self];
+      [self presentViewController:imagePicker animated:YES completion:nil];
+    }];
+    UIAlertAction* PhotoGallery = [UIAlertAction actionWithTitle:@"Photo Gallery" style: UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+      imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+      [imagePicker setDelegate:self];
+      [self presentViewController:imagePicker animated:YES completion:nil];
+    }];
+    UIAlertAction* Cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+      [view dismissViewControllerAnimated:YES completion:nil];
+    }];
     
-    [self presentViewController:imagePicker animated:YES completion:nil];
+    [view addAction:Camera];
+    [view addAction:PhotoGallery];
+    [view addAction:Cancel];
+    [self presentViewController:view animated:YES completion:nil];
     
   } else {
     // if no camera, set source to PhotoLibrary
@@ -92,20 +116,32 @@
   
   // check to see what device our user has and have them pick which source from the actionSheet
   if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Please Select Photo Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Photo Gallery", @"Camera", nil];
-    [actionSheet showInView:self.view];
-    imagePicker.sourceType = _sourceTypeForPicker;
-    [imagePicker setDelegate:self];
+    UIAlertController * view = [UIAlertController alertControllerWithTitle:nil message:@"Please Select Photo Source" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction* Camera = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+      imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+      [imagePicker setDelegate:self];
+      [self presentViewController:imagePicker animated:YES completion:nil];
+    }];
+    UIAlertAction* PhotoGallery = [UIAlertAction actionWithTitle:@"Photo Gallery" style: UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+      imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+      [imagePicker setDelegate:self];
+      [self presentViewController:imagePicker animated:YES completion:nil];
+    }];
+    UIAlertAction* Cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+      [view dismissViewControllerAnimated:YES completion:nil];
+    }];
     
-    [self presentViewController:imagePicker animated:YES completion:nil];
+    [view addAction:Camera];
+    [view addAction:PhotoGallery];
+    [view addAction:Cancel];
+    [self presentViewController:view animated:YES completion:nil];
     
   } else {
     // if no camera, set source to PhotoLibrary
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [imagePicker setDelegate:self];
     [self presentViewController:imagePicker animated:YES completion:nil];
-  }
-  _buttonNumber = 3;
+  }  _buttonNumber = 3;
 } // end button3 action
 
 - (IBAction)imageButton4Pressed:(id)sender {
@@ -113,12 +149,25 @@
   
   // check to see what device our user has and have them pick which source from the actionSheet
   if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Please Select Photo Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Photo Gallery", @"Camera", nil];
-    [actionSheet showInView:self.view];
-    imagePicker.sourceType = _sourceTypeForPicker;
-    [imagePicker setDelegate:self];
+    UIAlertController * view = [UIAlertController alertControllerWithTitle:nil message:@"Please Select Photo Source" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction* Camera = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+      imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+      [imagePicker setDelegate:self];
+      [self presentViewController:imagePicker animated:YES completion:nil];
+    }];
+    UIAlertAction* PhotoGallery = [UIAlertAction actionWithTitle:@"Photo Gallery" style: UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+      imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+      [imagePicker setDelegate:self];
+      [self presentViewController:imagePicker animated:YES completion:nil];
+    }];
+    UIAlertAction* Cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+      [view dismissViewControllerAnimated:YES completion:nil];
+    }];
     
-    [self presentViewController:imagePicker animated:YES completion:nil];
+    [view addAction:Camera];
+    [view addAction:PhotoGallery];
+    [view addAction:Cancel];
+    [self presentViewController:view animated:YES completion:nil];
     
   } else {
     // if no camera, set source to PhotoLibrary
@@ -131,31 +180,17 @@
 
 - (IBAction)uploadToFBButtonPressed:(id)sender {
   
-  // if no photos in PhotoAlbumn Array, then send an alertActionSheet to say "no pictures" and cancel upload else upload photoAlbumn Array
+  if (_info == nil) {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil message:@"You have not picked any images to upload" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
+    
+      [alert addAction:defaultAction];
+      [self presentViewController:alert animated:YES completion:nil];
+    
+ } // close uploadbutton action
+  
 }
-
-// returns an array of available media types for the specified source type
-//+ (NSArray *)AvailableMediaTypesForSourceType:(UIImagePickerControllerSourceType);
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-  
-  if (buttonIndex == 0) {
-    NSLog(@"Photo Gallery button Clicked");
-    self.sourceTypeForPicker = UIImagePickerControllerSourceTypePhotoLibrary;
-       }
-  
-  else if(buttonIndex == 1) {
-    NSLog(@"Camera button clicked");
-    self.sourceTypeForPicker = UIImagePickerControllerSourceTypeCamera;
-    
-  }
-  else if(buttonIndex == 2) {
-    NSLog(@"Cancel button clicked");
-    // cancels the actionsheet
-  [self dismissViewControllerAnimated:YES completion:nil];
-    
-  }
-} // end of actionsheet
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
   _image = [info objectForKey:UIImagePickerControllerOriginalImage];
@@ -184,11 +219,6 @@
   NSLog(@"The picture Dictionary: %@", info);
 
 }
-
-//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-//     [picker dismissModalViewControllerAnimated:YES];
-//     UIImageView.image = [info objectForKey:@"UIIMagePickerControllerOriginalImage"];
-//}
 
 
 /*

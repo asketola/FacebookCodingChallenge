@@ -24,6 +24,7 @@
 @property (nonatomic) UIImage *imageNumber;
 @property (nonatomic, assign) int buttonNumber;
 @property (nonatomic) UIImage *image;
+@property (nonatomic) NSMutableDictionary *info;
 
 - (IBAction)imageButton1Pressed:(id)sender;
 - (IBAction)imageButton2Pressed:(id)sender;
