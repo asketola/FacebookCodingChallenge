@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Photos/Photos.h>
 
 @interface ImageViewController : UIViewController
 <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
@@ -20,11 +21,13 @@
   
 }
 
+@property(nonatomic, strong, readonly) PHObjectPlaceholder *placeholderForCreatedAssetCollection;
 @property (nonatomic) UIImagePickerControllerSourceType sourceTypeForPicker;
 @property (nonatomic) UIImage *imageNumber;
 @property (nonatomic, assign) int buttonNumber;
 @property (nonatomic) UIImage *image;
-@property (nonatomic) NSMutableDictionary *info;
+@property (nonatomic) NSMutableArray *imagesArray;
+@property (strong, atomic) PHAssetCollection * library;
 
 - (IBAction)imageButton1Pressed:(id)sender;
 - (IBAction)imageButton2Pressed:(id)sender;

@@ -7,6 +7,10 @@
 //
 
 #import "ImageViewController.h"
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
+@import Photos;
 
 @interface ImageViewController ()
 
@@ -18,6 +22,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
   uploadToFbButton.layer.cornerRadius = 10.0;
+//  uploadToFbButton.backgroundColor = [UIColor lightGrayColor];
+  uploadToFbButton.enabled = NO;
   
   [button1 setBackgroundImage:[UIImage imageNamed:@"Unknown.png"] forState:UIControlStateNormal];
   button1.layer.cornerRadius = 10.0f;
@@ -26,14 +32,26 @@
   [button2 setBackgroundImage:[UIImage imageNamed:@"Unknown.png"] forState:UIControlStateNormal];
   button2.layer.cornerRadius = 10.0f;
   [button2.layer setMasksToBounds:YES];
+  button2.enabled = NO;
   
   [button3 setBackgroundImage:[UIImage imageNamed:@"Unknown.png"] forState:UIControlStateNormal];
   button3.layer.cornerRadius = 10.0f;
   [button3.layer setMasksToBounds:YES];
+  button3.enabled = NO;
   
   [button4 setBackgroundImage:[UIImage imageNamed:@"Unknown.png"] forState:UIControlStateNormal];
   button4.layer.cornerRadius = 10.0f;
   [button4.layer setMasksToBounds:YES];
+  button4.enabled = NO;
+  
+  // Create new album that we will put our selected photos in
+  [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+    [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:@"OfferUp"];
+  } completionHandler:^(BOOL success, NSError *error) {
+    if (!success) {
+      NSLog(@"Error creating album: %@", error);
+    }
+  }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -141,7 +159,8 @@
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [imagePicker setDelegate:self];
     [self presentViewController:imagePicker animated:YES completion:nil];
-  }  _buttonNumber = 3;
+  }
+  _buttonNumber = 3;
 } // end button3 action
 
 - (IBAction)imageButton4Pressed:(id)sender {
@@ -180,35 +199,56 @@
 
 - (IBAction)uploadToFBButtonPressed:(id)sender {
   
-  if (_info == nil) {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil message:@"You have not picked any images to upload" preferredStyle:UIAlertControllerStyleAlert];
+  // Checking for FB permissions first
+  if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"photo_upload"]) {
+    // publish content/send our photo album
     
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
     
-      [alert addAction:defaultAction];
-      [self presentViewController:alert animated:YES completion:nil];
-    
- } // close uploadbutton action
+  } else {
+    FBSDKLoginManager *loginManger = [[FBSDKLoginManager alloc]init];
+    [loginManger logInWithPublishPermissions:@[@"photo_upload"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+      // process error or results
+    }];
+  }
   
-}
+} // close uploadbutton action
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
   _image = [info objectForKey:UIImagePickerControllerOriginalImage];
   
-  // puts image on the thumbnail back on the screen
+  // Add it to the photo library
+  [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+      PHAssetChangeRequest *createAssetRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:_image];
+      PHObjectPlaceholder *assetPlaceholder = createAssetRequest.placeholderForCreatedAsset;
+    PHAssetCollectionChangeRequest *addAssetRequest = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:@"OfferUP"];
+    [addAssetRequest addAssets:@[assetPlaceholder]];
+    
+//     [albumChangeRequest addAssets:@[ assetPlaceholder]];
+    
+    } completionHandler:^(BOOL success, NSError *error) {
+      if (success){
+        NSLog(@"Success saving picture to album");
+      } else {
+        NSLog(@"Error creating asset: %@", error);
+      }
+    }];
   
+  // puts image on the thumbnail back on the screen
   if (_buttonNumber == 1) {
     [button1 setBackgroundImage:_image forState:UIControlStateNormal];
     button1.layer.cornerRadius = 10.0;
     [button1.layer setMasksToBounds:YES];
+    button2.enabled = YES;
   } else if (_buttonNumber == 2) {
     [button2 setBackgroundImage:_image forState:UIControlStateNormal];
     button2.layer.cornerRadius = 10.0;
     [button2.layer setMasksToBounds:YES];
+    button3.enabled = YES;
   } else if (_buttonNumber == 3) {
     [button3 setBackgroundImage:_image forState:UIControlStateNormal];
     button3.layer.cornerRadius = 10.0;
     [button3.layer setMasksToBounds:YES];
+    button4.enabled = YES;
   } else if (_buttonNumber == 4) {
     [button4 setBackgroundImage:_image forState:UIControlStateNormal];
     button4.layer.cornerRadius = 10.0;
@@ -216,10 +256,9 @@
   }
 
   [self dismissViewControllerAnimated:YES completion:nil];
-  NSLog(@"The picture Dictionary: %@", info);
-
+//  NSLog(@"The picture Dictionary: %@", info);
+    uploadToFbButton.enabled = YES;
 }
-
 
 /*
 #pragma mark - Navigation
@@ -230,7 +269,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-
-
 
 @end
