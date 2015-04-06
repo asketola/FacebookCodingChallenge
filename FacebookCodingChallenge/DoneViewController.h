@@ -11,6 +11,5 @@
 @interface DoneViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 
-- (IBAction)doneButtonPressed:(id)sender;
 
 @end

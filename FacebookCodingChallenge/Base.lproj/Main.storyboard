@@ -43,7 +43,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="loginToFbButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rMJ-2A-5bJ"/>
+                                    <action selector="loginToFbButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="09v-Vl-GHa"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OfferUp Challenge" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uxk-cd-yp3">
@@ -68,7 +68,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Le0-o9-uPn"/>
                     <connections>
-                        <outlet property="loginToFbButton" destination="8a1-4U-89x" id="IpB-dt-WMP"/>
+                        <outlet property="loginToFbButton" destination="8a1-4U-89x" id="jnF-1f-wu1"/>
                         <outlet property="uploadImagesButton" destination="RXE-M5-9I2" id="9uL-WS-IxV"/>
                     </connections>
                 </viewController>
@@ -232,7 +232,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="doneButtonPressed:" destination="r1X-Nn-U25" eventType="touchUpInside" id="EtJ-eU-tAL"/>
                                     <segue destination="nhh-i9-ggd" kind="unwind" unwindAction="prepareForUnwind:" id="DJj-Nb-ZZx"/>
                                 </connections>
                             </button>

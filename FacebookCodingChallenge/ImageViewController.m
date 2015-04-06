@@ -10,9 +10,11 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+
 @import Photos;
 
-@interface ImageViewController ()
+@interface ImageViewController () <PHPhotoLibraryChangeObserver>
+@property (strong) NSArray *collectionsFetchResults;
 
 @end
 
@@ -44,15 +46,26 @@
   [button4.layer setMasksToBounds:YES];
   button4.enabled = NO;
   
-  // Create new album that we will put our selected photos in
-  [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-    [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:@"OfferUp"];
-  } completionHandler:^(BOOL success, NSError *error) {
-    if (!success) {
-      NSLog(@"Error creating album: %@", error);
-    }
-  }];
-}
+  NSString *title = @"OfferUp";
+  _assetCollection = [self albumWithTitle:title];
+  
+  if(self.assetCollection){
+    // Album exists
+  } else {
+    // Need to create OfferUp album
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+      [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:title];
+    } completionHandler:^(BOOL success, NSError *error) {
+      if (!success) {
+        NSLog(@"Error creating album: %@", error);
+      } else {
+        NSLog(@"album created");
+        _assetCollection = [self albumWithTitle:title];
+      }
+    }];
+  }
+} // close viewDidLoad
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -69,11 +82,13 @@
     UIAlertAction* Camera = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
       imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
       [imagePicker setDelegate:self];
+      _type = @"camera";
       [self presentViewController:imagePicker animated:YES completion:nil];
     }];
     UIAlertAction* PhotoGallery = [UIAlertAction actionWithTitle:@"Photo Gallery" style: UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
       imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
       [imagePicker setDelegate:self];
+      _type = @"gallery";
       [self presentViewController:imagePicker animated:YES completion:nil];
     }];
     UIAlertAction* Cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -89,6 +104,7 @@
     // if no camera, set source to PhotoLibrary
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [imagePicker setDelegate:self];
+    _type = @"gallery";
     [self presentViewController:imagePicker animated:YES completion:nil];
   }
   
@@ -104,11 +120,13 @@
     UIAlertAction* Camera = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
       imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
       [imagePicker setDelegate:self];
+      _type = @"camera";
       [self presentViewController:imagePicker animated:YES completion:nil];
     }];
     UIAlertAction* PhotoGallery = [UIAlertAction actionWithTitle:@"Photo Gallery" style: UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
       imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
       [imagePicker setDelegate:self];
+      _type = @"gallery";
       [self presentViewController:imagePicker animated:YES completion:nil];
     }];
     UIAlertAction* Cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -124,6 +142,7 @@
     // if no camera, set source to PhotoLibrary
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [imagePicker setDelegate:self];
+    _type = @"gallery";
     [self presentViewController:imagePicker animated:YES completion:nil];
   }
   _buttonNumber = 2;
@@ -138,11 +157,13 @@
     UIAlertAction* Camera = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
       imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
       [imagePicker setDelegate:self];
+      _type = @"camera";
       [self presentViewController:imagePicker animated:YES completion:nil];
     }];
     UIAlertAction* PhotoGallery = [UIAlertAction actionWithTitle:@"Photo Gallery" style: UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
       imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
       [imagePicker setDelegate:self];
+      _type = @"gallery";
       [self presentViewController:imagePicker animated:YES completion:nil];
     }];
     UIAlertAction* Cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -158,6 +179,7 @@
     // if no camera, set source to PhotoLibrary
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [imagePicker setDelegate:self];
+    _type = @"gallery";
     [self presentViewController:imagePicker animated:YES completion:nil];
   }
   _buttonNumber = 3;
@@ -172,11 +194,13 @@
     UIAlertAction* Camera = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
       imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
       [imagePicker setDelegate:self];
+      _type = @"camera";
       [self presentViewController:imagePicker animated:YES completion:nil];
     }];
     UIAlertAction* PhotoGallery = [UIAlertAction actionWithTitle:@"Photo Gallery" style: UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
       imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
       [imagePicker setDelegate:self];
+      _type = @"gallery";
       [self presentViewController:imagePicker animated:YES completion:nil];
     }];
     UIAlertAction* Cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -192,6 +216,7 @@
     // if no camera, set source to PhotoLibrary
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [imagePicker setDelegate:self];
+    _type = @"gallery";
     [self presentViewController:imagePicker animated:YES completion:nil];
   }
   _buttonNumber = 4;
@@ -199,33 +224,59 @@
 
 - (IBAction)uploadToFBButtonPressed:(id)sender {
   
-  // Checking for FB permissions first
-  if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"photo_upload"]) {
-    // publish content/send our photo album
-    
-    
-  } else {
-    FBSDKLoginManager *loginManger = [[FBSDKLoginManager alloc]init];
-    [loginManger logInWithPublishPermissions:@[@"photo_upload"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-      // process error or results
-    }];
-  }
-  
+//  // Checking for FB permissions first
+//  if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"photo_upload"]) {
+//    // publish content/send our photo album
+//  NSDictionary *params = @{
+//                           @"source": @"{image-data}",
+//                           };
+//  /* make the API call */
+//  [FBSDKGraphRequestConnection startWithGraphPath:@"/{album-id}/photos"
+//                                       parameters:params
+//                                       HTTPMethod:@"POST"
+//                                completionHandler:^(
+//                                                    FBSDKGraphRequestConnection *connection,
+//                                                    id result,
+//                                                    NSError *error
+//                                                    ) {
+//                                  /* handle the result */
+//                                }];
+//
+//  } else {
+//    FBSDKLoginManager *loginManger = [[FBSDKLoginManager alloc]init];
+//    [loginManger logInWithPublishPermissions:@[@"photo_upload"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+//      // process error or results
+//    }];
+//  }
 } // close uploadbutton action
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
   _image = [info objectForKey:UIImagePickerControllerOriginalImage];
-  
-  // Add it to the photo library
+  NSLog(@"We got here");
+  // This should work, but it seems to die
+//  PHAssetChangeRequest *createAssetRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:_image];
+  NSLog(@"type: %@", _type);
+  if ([_type isEqualToString:@"gallery"]) {
+  // creates PHasset from photo gallery
+  NSURL *url = [info objectForKey:@"UIImagePickerControllerReferenceURL"];
+  PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
+  NSLog(@"result %@", result);
+  _asset = result.firstObject;
+  NSLog(@"asset from photo gallery: %@", _asset);
+  } else if ([_type isEqualToString:@"camera"]){
+  // creates PHasset for image from camera
+  _asset = [info objectForKey:UIImagePickerControllerMediaMetadata];
+  NSLog(@"asset from camera: %@", _asset);
+  }
+
+  // Add PHAsset to the photo library
   [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-      PHAssetChangeRequest *createAssetRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:_image];
-      PHObjectPlaceholder *assetPlaceholder = createAssetRequest.placeholderForCreatedAsset;
-    PHAssetCollectionChangeRequest *addAssetRequest = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:@"OfferUP"];
-    [addAssetRequest addAssets:@[assetPlaceholder]];
-    
-//     [albumChangeRequest addAssets:@[ assetPlaceholder]];
-    
-    } completionHandler:^(BOOL success, NSError *error) {
+    NSLog(@"We got here");
+    PHAssetCollectionChangeRequest *changeRequest = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:_assetCollection];
+//    PHObjectPlaceholder *assetPlaceholder = [createAssetRequest placeholderForCreatedAsset];
+//    [changeRequest addAssets:@[assetPlaceholder]];
+    [changeRequest addAssets:@[_asset]];
+  } completionHandler:^(BOOL success, NSError *error) {
       if (success){
         NSLog(@"Success saving picture to album");
       } else {
@@ -258,6 +309,39 @@
   [self dismissViewControllerAnimated:YES completion:nil];
 //  NSLog(@"The picture Dictionary: %@", info);
     uploadToFbButton.enabled = YES;
+}
+
+- (void)photoLibraryDidChange:(PHChange *)changeInstance
+{
+  // Call might come on any background queue. Re-dispatch to the main queue to handle it.
+  dispatch_async(dispatch_get_main_queue(), ^{
+    
+    NSMutableArray *updatedCollectionsFetchResults = nil;
+    
+    for (PHFetchResult *collectionsFetchResult in self.collectionsFetchResults) {
+      PHFetchResultChangeDetails *changeDetails = [changeInstance changeDetailsForFetchResult:collectionsFetchResult];
+      if (changeDetails) {
+        if (!updatedCollectionsFetchResults) {
+          updatedCollectionsFetchResults = [self.collectionsFetchResults mutableCopy];
+        }
+        [updatedCollectionsFetchResults replaceObjectAtIndex:[self.collectionsFetchResults indexOfObject:collectionsFetchResult] withObject:[changeDetails fetchResultAfterChanges]];
+      }
+    }
+    
+  });
+}
+
+-(PHAssetCollection*)albumWithTitle:(NSString*)title{
+  // Check if album exists. If not, create it.
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"localizedTitle = %@", title];
+  PHFetchOptions *options = [[PHFetchOptions alloc]init];
+  options.predicate = predicate;
+  PHFetchResult *result = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAny options:options];
+  if(result.count){
+    return result[0];
+  }
+  return nil;
+  
 }
 
 /*

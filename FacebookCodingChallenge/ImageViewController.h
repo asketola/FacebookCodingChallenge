@@ -10,7 +10,7 @@
 #import <Photos/Photos.h>
 
 @interface ImageViewController : UIViewController
-<UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
+<UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, PHPhotoLibraryChangeObserver>
 
 {
   __weak IBOutlet UIButton *button1;
@@ -27,7 +27,12 @@
 @property (nonatomic, assign) int buttonNumber;
 @property (nonatomic) UIImage *image;
 @property (nonatomic) NSMutableArray *imagesArray;
-@property (strong, atomic) PHAssetCollection * library;
+@property (nonatomic) PHFetchResult * images;
+@property (nonatomic) PHCachingImageManager * imageManager;
+//@property (nonatomic) NSString *title;
+@property (strong) PHAsset *asset;
+@property (strong) PHAssetCollection *assetCollection;
+@property (nonatomic) NSString *type;
 
 - (IBAction)imageButton1Pressed:(id)sender;
 - (IBAction)imageButton2Pressed:(id)sender;
