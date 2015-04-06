@@ -52,7 +52,7 @@
   } else  {
   NSLog(@"We have got to the button part");
   FBSDKLoginManager *login = [[FBSDKLoginManager alloc]init];
-  [login logInWithPublishPermissions:@[@"publish_actions", @"photo_upload"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+  [login logInWithPublishPermissions:@[@"publish_actions"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
     _uploadImagesButton.enabled = YES;
     [_loginToFbButton setTitle:@"Logout" forState:UIControlStateNormal];
     if (error) {

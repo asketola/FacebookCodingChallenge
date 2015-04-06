@@ -224,9 +224,28 @@
 
 - (IBAction)uploadToFBButtonPressed:(id)sender {
   
-//  // Checking for FB permissions first
-//  if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"photo_upload"]) {
-//    // publish content/send our photo album
+  // Checking for FB permissions first, Facebook now wants you to get specific permissions only when you need them, at specific times when you will use them
+  if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"photo_upload"]) {
+    // publish content/send our photo album
+    NSLog(@"we checked if we had access and we do");
+  } else {
+    NSLog(@"we do not have permission");
+    UIAlertController * view = [UIAlertController alertControllerWithTitle:nil message:@"This app needs permission to post photos to Facebook" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction* Get_Permission = [UIAlertAction actionWithTitle:@"Get Permission" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+      // put code to get "photo_upload" permission from Facebook
+      //    FBSDKLoginManager *loginManger = [[FBSDKLoginManager alloc]init];
+      //    [loginManger logInWithPublishPermissions:@[@"photo_upload"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+      //      // process error or results
+      //    }];
+    }];
+    UIAlertAction* Cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+      [view dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    [view addAction:Get_Permission];
+    [view addAction:Cancel];
+    [self presentViewController:view animated:YES completion:nil];
+  }
 //  NSDictionary *params = @{
 //                           @"source": @"{image-data}",
 //                           };
@@ -243,10 +262,7 @@
 //                                }];
 //
 //  } else {
-//    FBSDKLoginManager *loginManger = [[FBSDKLoginManager alloc]init];
-//    [loginManger logInWithPublishPermissions:@[@"photo_upload"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-//      // process error or results
-//    }];
+
 //  }
 } // close uploadbutton action
 
