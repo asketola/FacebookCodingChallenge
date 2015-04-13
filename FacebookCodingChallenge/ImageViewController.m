@@ -7,6 +7,7 @@
 //
 
 #import "ImageViewController.h"
+#import "DoneViewController.h"
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
@@ -20,6 +21,11 @@
 @property (nonatomic) UIImage *image2;
 @property (nonatomic) UIImage *image3;
 @property (nonatomic) UIImage *image4;
+@property (nonatomic) NSInteger photo1Error;
+@property (nonatomic) NSInteger photo2Error;
+@property (nonatomic) NSInteger photo3Error;
+@property (nonatomic) NSInteger photo4Error;
+
 
 @end
 
@@ -32,6 +38,8 @@
     NSLog(@"we have publish permissions");
     // TODO: publish content.
   }
+  spinner.hidesWhenStopped = YES;
+  
   uploadToFbButton.layer.cornerRadius = 10.0;
 //  uploadToFbButton.backgroundColor = [UIColor lightGrayColor];
   uploadToFbButton.enabled = NO;
@@ -239,64 +247,7 @@
 } // end button4 action
 
 - (IBAction)uploadToFBButtonPressed:(id)sender {
-  
-  // Checking for FB permissions first, Facebook now wants you to get specific permissions only when you need them, at specific times when you will use them
-  if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"user_photos"]) {
-    // publish content/send our photo album
-    NSLog(@"we checked if we had access and we do");
-  } else {
-    NSLog(@"we do not have permission");
-    UIAlertController * view = [UIAlertController alertControllerWithTitle:nil message:@"This app needs permission to post photos to Facebook" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction* Get_Permission = [UIAlertAction actionWithTitle:@"Get Permission" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-      // put code to get "user_photos" permission from Facebook
-          FBSDKLoginManager *loginManger = [[FBSDKLoginManager alloc]init];
-          [loginManger logInWithReadPermissions:@[@"user_photos"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-            NSLog(@"we did not get permission because: %@", error);
-          }];
-    }];
-    UIAlertAction* Cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-      [view dismissViewControllerAnimated:YES completion:nil];
-    }];
-    
-    [view addAction:Get_Permission];
-    [view addAction:Cancel];
-    [self presentViewController:view animated:YES completion:nil];
-  }
-  
-  if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"publish_actions"]) {
-    if (_image1 != nil) {
-      FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
-      photo.image = _image1;
-      photo.userGenerated = YES;
-      FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
-      content.photos = @[photo];
-      [FBSDKShareAPI shareWithContent:content delegate:nil];
-      
-    } if (_image2 != nil) {
-      FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
-      photo.image = _image2;
-      photo.userGenerated = YES;
-      FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
-      content.photos = @[photo];
-      [FBSDKShareAPI shareWithContent:content delegate:nil];
-      
-    } if (_image3 != nil) {
-      FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
-      photo.image = _image3;
-      photo.userGenerated = YES;
-      FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
-      content.photos = @[photo];
-      [FBSDKShareAPI shareWithContent:content delegate:nil];
-      
-    } if (_image4 != nil) {
-      FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
-      photo.image = _image4;
-      photo.userGenerated = YES;
-      FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
-      content.photos = @[photo];
-      [FBSDKShareAPI shareWithContent:content delegate:nil];
-    }
-  }
+  // moved all the work to the prepareForSegue command
 } // close uploadbutton action
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -396,6 +347,108 @@
   return nil;
   
 }
+
+                         
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+  if ([segue.identifier isEqualToString:@"SHOW_DONE_PAGE"]) {
+    
+      [self->spinner startAnimating];
+    // Checking for FB permissions first, Facebook now wants you to get specific permissions only when you need them, at specific times when you will use them
+    if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"user_photos"]) {
+      // publish content/send our photo album
+      NSLog(@"we checked if we had access and we do");
+    } else {
+      NSLog(@"we do not have permission");
+      UIAlertController * view = [UIAlertController alertControllerWithTitle:nil message:@"This app needs permission to post photos to Facebook" preferredStyle:UIAlertControllerStyleActionSheet];
+      UIAlertAction* Get_Permission = [UIAlertAction actionWithTitle:@"Get Permission" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        // put code to get "user_photos" permission from Facebook
+        FBSDKLoginManager *loginManger = [[FBSDKLoginManager alloc]init];
+        [loginManger logInWithReadPermissions:@[@"user_photos"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+          NSLog(@"we did not get permission because: %@", error);
+        }];
+      }];
+      UIAlertAction* Cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [view dismissViewControllerAnimated:YES completion:nil];
+      }];
+      
+      [view addAction:Get_Permission];
+      [view addAction:Cancel];
+      [self presentViewController:view animated:YES completion:nil];
+    }
+    
+    if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"publish_actions"]) {
+      if (_image1 != nil) {
+        FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
+        photo.image = _image1;
+        photo.userGenerated = YES;
+        FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
+        content.photos = @[photo];
+        [FBSDKShareAPI shareWithContent:content delegate:nil];
+        // if no native app
+        [FBSDKShareDialog showFromViewController:self
+                                     withContent:content
+                                        delegate:nil];
+        
+        NSLog(@"Error code: %ld", (long)FBSDKShareDialogNotAvailableErrorCode);
+        
+      } if (_image2 != nil) {
+        FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
+        photo.image = _image2;
+        photo.userGenerated = YES;
+        FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
+        content.photos = @[photo];
+        [FBSDKShareAPI shareWithContent:content delegate:nil];
+        // if no native app
+        [FBSDKShareDialog showFromViewController:self
+                                     withContent:content
+                                        delegate:nil];
+        self.photo1Error = FBSDKShareReservedErrorCode;
+        NSLog(@"Error code: %ld", (long)FBSDKShareDialogNotAvailableErrorCode);
+        
+      } if (_image3 != nil) {
+        FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
+        photo.image = _image3;
+        photo.userGenerated = YES;
+        FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
+        content.photos = @[photo];
+        [FBSDKShareAPI shareWithContent:content delegate:nil];
+        // if no native app
+        [FBSDKShareDialog showFromViewController:self
+                                     withContent:content
+                                        delegate:nil];
+        self.photo2Error = FBSDKShareReservedErrorCode;
+        NSLog(@"Error code: %ld", (long)FBSDKShareDialogNotAvailableErrorCode);
+        
+      } if (_image4 != nil) {
+        FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
+        photo.image = _image4;
+        photo.userGenerated = YES;
+        FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
+        content.photos = @[photo];
+        [FBSDKShareAPI shareWithContent:content delegate:nil];
+        // if no native app
+        [FBSDKShareDialog showFromViewController:self
+                                     withContent:content
+                                        delegate:nil];
+        self.photo4Error = FBSDKShareReservedErrorCode;
+        NSLog(@"Error code: %ld", (long)FBSDKShareDialogNotAvailableErrorCode);
+      }
+    }
+    
+    //  if (!self.photo1Error == (200-299) || !self.photo2Error == (200-299) | !self.photo3Error == (200-299) | !self.photo4Error == (200-299)) {
+    //    UIAlertController * view = [UIAlertController alertControllerWithTitle:nil message:@"Error in photo upload. Please try again" preferredStyle:UIAlertControllerStyleAlert];
+    //    UIAlertAction* OK = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    //      [view dismissViewControllerAnimated:YES completion:nil];
+    //  }
+    
+  }
+
+  // When all the work is done stop the spinner animation and go to the next page
+  [self->spinner stopAnimating];
+  DoneViewController *destinationVC = segue.destinationViewController;
+  
+} // close prepare for segue
+                    
 
 /*
 #pragma mark - Navigation

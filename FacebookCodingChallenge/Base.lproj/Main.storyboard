@@ -169,6 +169,14 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="S37-Lu-CgP">
+                                <rect key="frame" x="270" y="118" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="0lp-mF-WjH"/>
+                                    <constraint firstAttribute="width" constant="60" id="ePc-bJ-7tQ"/>
+                                </constraints>
+                                <color key="color" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.84753258850000002" green="0.84753258850000002" blue="0.84753258850000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -178,6 +186,7 @@
                             <constraint firstAttribute="centerX" secondItem="Lh4-6F-rcV" secondAttribute="centerX" id="8lQ-kI-CzW"/>
                             <constraint firstItem="zWc-pL-qAz" firstAttribute="leading" secondItem="1Wa-Ws-2Iy" secondAttribute="trailing" constant="8" id="8z1-Rz-rfO"/>
                             <constraint firstItem="1Wa-Ws-2Iy" firstAttribute="top" secondItem="Lh4-6F-rcV" secondAttribute="bottom" constant="8" id="ASF-4x-FNv"/>
+                            <constraint firstAttribute="centerX" secondItem="S37-Lu-CgP" secondAttribute="centerX" id="BD3-ZW-d4p"/>
                             <constraint firstItem="Ipn-rH-o9N" firstAttribute="width" secondItem="1Wa-Ws-2Iy" secondAttribute="width" id="D76-68-I0V"/>
                             <constraint firstItem="1Wa-Ws-2Iy" firstAttribute="leading" secondItem="iQO-Sf-Ky4" secondAttribute="trailing" constant="8" id="DhH-LE-UbR"/>
                             <constraint firstItem="Ipn-rH-o9N" firstAttribute="height" secondItem="1Wa-Ws-2Iy" secondAttribute="height" id="Ji0-qV-mKQ"/>
@@ -188,19 +197,27 @@
                             <constraint firstItem="iQO-Sf-Ky4" firstAttribute="leading" secondItem="n2e-ZF-5e6" secondAttribute="leadingMargin" id="Y7m-XI-VXy"/>
                             <constraint firstItem="Ipn-rH-o9N" firstAttribute="height" secondItem="zWc-pL-qAz" secondAttribute="height" id="Zr1-LQ-br0"/>
                             <constraint firstItem="g7p-4f-bVE" firstAttribute="top" secondItem="sJ8-UQ-275" secondAttribute="bottom" constant="20" id="bfV-yp-fAu"/>
+                            <constraint firstAttribute="centerY" secondItem="S37-Lu-CgP" secondAttribute="centerY" id="f2k-a6-taP"/>
                             <constraint firstAttribute="centerY" secondItem="1Wa-Ws-2Iy" secondAttribute="centerY" id="gr5-VN-G4r"/>
                             <constraint firstItem="sJ8-UQ-275" firstAttribute="leading" secondItem="n2e-ZF-5e6" secondAttribute="leadingMargin" id="h6o-wE-7x8"/>
                             <constraint firstAttribute="centerX" secondItem="C0y-Ww-hNn" secondAttribute="centerX" id="jRR-30-4vx"/>
                             <constraint firstItem="Ipn-rH-o9N" firstAttribute="width" secondItem="zWc-pL-qAz" secondAttribute="width" id="msI-td-r5y"/>
                             <constraint firstItem="Ipn-rH-o9N" firstAttribute="trailing" secondItem="n2e-ZF-5e6" secondAttribute="trailingMargin" id="pF4-hK-heF"/>
                             <constraint firstItem="Ipn-rH-o9N" firstAttribute="leading" secondItem="zWc-pL-qAz" secondAttribute="trailing" constant="8" id="tY3-0h-s4j"/>
+                            <constraint firstItem="S37-Lu-CgP" firstAttribute="top" secondItem="C0y-Ww-hNn" secondAttribute="bottom" constant="25" id="v0x-St-CJa"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="f2k-a6-taP"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="button1" destination="iQO-Sf-Ky4" id="Hky-K0-Uc5"/>
                         <outlet property="button2" destination="1Wa-Ws-2Iy" id="MqY-ED-KWU"/>
                         <outlet property="button3" destination="zWc-pL-qAz" id="UFU-ru-Nwx"/>
                         <outlet property="button4" destination="Ipn-rH-o9N" id="Hhh-Dq-R0A"/>
+                        <outlet property="spinner" destination="S37-Lu-CgP" id="hVa-Ud-glY"/>
                         <outlet property="uploadToFbButton" destination="sJ8-UQ-275" id="qle-hM-oFQ"/>
                     </connections>
                 </viewController>

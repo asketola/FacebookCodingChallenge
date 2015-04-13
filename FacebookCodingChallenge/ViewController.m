@@ -72,22 +72,22 @@
       // Handle Cancellations - send AlertController to say we need access??
       _uploadImagesButton.enabled = NO;
       [_loginToFbButton setTitle:@"Login To Facebook" forState:UIControlStateNormal];
-    } else {
-      // If you ask for multiple permissions once, you should should check if specific permissions missing
-      if ([result.grantedPermissions containsObject:@"publish_actions"]) {
-        [login logInWithReadPermissions:@[@"user_photos"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-          if (error) {
-            // process error
-          } else if (result.isCancelled) {
-            NSLog(@"Error message: %@", error);
-          } else {
-            if ([result.grantedPermissions containsObject:@"user_photos"]) {
-              NSLog(@"Permissions granted = %@", result.grantedPermissions);
-            }
-          }
-        }];
-      }
-    }
+    } // else {
+//      // If you ask for multiple permissions once, you should should check if specific permissions missing
+//      if ([result.grantedPermissions containsObject:@"publish_actions"]) {
+//        [login logInWithReadPermissions:@[@"user_photos"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+//          if (error) {
+//            // process error
+//          } else if (result.isCancelled) {
+//            NSLog(@"Error message: %@", error);
+//          } else {
+//            if ([result.grantedPermissions containsObject:@"user_photos"]) {
+//              NSLog(@"Permissions granted = %@", result.grantedPermissions);
+//            }
+//          }
+//        }];
+//      }
+//    }
   }];
   } // close else
 } // close loginFB button

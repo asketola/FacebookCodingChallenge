@@ -18,6 +18,7 @@
   __weak IBOutlet UIButton *button3;
   __weak IBOutlet UIButton *button4;
   __weak IBOutlet UIButton *uploadToFbButton;
+  __weak IBOutlet UIActivityIndicatorView *spinner;
   
 }
 
