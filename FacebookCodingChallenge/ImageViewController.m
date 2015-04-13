@@ -458,7 +458,7 @@
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {
   if (error) {
-    NSLog(@"Image did not save property");
+    NSLog(@"Image did not save properly");
   } else {
     NSLog(@"We saved the camera image!");
   }
