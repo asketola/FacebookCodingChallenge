@@ -248,8 +248,11 @@
 } // end button4 action
 
 - (IBAction)uploadToFBButtonPressed:(id)sender {
-  // start the spinner animation
-  [spinner startAnimating];
+
+  dispatch_async(dispatch_get_main_queue(), ^{
+//    start the spinner animation 
+    [spinner startAnimating];
+  });
   
   // Checking for FB permissions first, Facebook now wants you to get specific permissions only when you need them, at specific times when you will use them
   if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"user_photos"]) {
@@ -379,18 +382,21 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
   _image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    NSLog(@"type: %@", _type);
 // According to the documentation, this should be the call to create an asset, however I could not get it to work, more investgation needed
 //  PHAssetChangeRequest *createAssetRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:_image];
   
   // Check for where the image came from (gallery or camera)
-  NSLog(@"type: %@", _type);
   if ([_type isEqualToString:@"gallery"]) {
+    
   // creates PHasset from photo gallery
   NSURL *url = [info objectForKey:@"UIImagePickerControllerReferenceURL"];
   PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
   NSLog(@"result %@", result);
   _asset = result.firstObject;
     NSLog(@"asset from photo gallery: %@", _asset);
+    
+  // If the image came from the camera
   } else if ([_type isEqualToString:@"camera"]){
     // first save the image to the device
 //    UIImageWriteToSavedPhotosAlbum([info valueForKey:UIImagePickerControllerOriginalImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
@@ -491,14 +497,5 @@
   return nil;
 } // close albumWithTitle
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
+// The End!
 @end
