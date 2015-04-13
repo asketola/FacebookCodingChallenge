@@ -26,24 +26,23 @@
 @property (nonatomic) NSInteger photo3Error;
 @property (nonatomic) NSInteger photo4Error;
 
-
 @end
 
 @implementation ImageViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
   if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"publish_actions"]) {
     NSLog(@"we have publish permissions");
-    // TODO: publish content.
   }
+  // Have the activity spinner be disabled prior to the UploadImagesButton is pressed
   spinner.hidesWhenStopped = YES;
   
+  // UploadToFbButton styling and initial state set
   uploadToFbButton.layer.cornerRadius = 10.0;
-//  uploadToFbButton.backgroundColor = [UIColor lightGrayColor];
   uploadToFbButton.enabled = NO;
 
+  // Image button styling and initial state set
   [button1 setBackgroundImage:[UIImage imageNamed:@"Unknown.png"] forState:UIControlStateNormal];
   button1.layer.cornerRadius = 10.0f;
   [button1.layer setMasksToBounds:YES];
@@ -63,6 +62,7 @@
   [button4.layer setMasksToBounds:YES];
   button4.enabled = NO;
   
+  // Initial set up of the OfferUp Photos Frameworks Album into our device
   NSString *title = @"OfferUp";
   _assetCollection = [self albumWithTitle:title];
   
@@ -259,69 +259,86 @@
     // double check for publish actions (user_photos comes from permissionToRead, while publish_actions should have come when we logged in)
     if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"publish_actions"]) {
       if (_image1 != nil) {
-//        FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
-//        photo.image = _image1;
-//        photo.userGenerated = YES;
-//        FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
-//        content.photos = @[photo];
-//        [FBSDKShareAPI shareWithContent:content delegate:nil];
-//        // if no native app
+        FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
+        photo.image = _image1;
+        photo.userGenerated = YES;
+        FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
+        content.photos = @[photo];
+        [FBSDKShareAPI shareWithContent:content delegate:nil];
+//         if no native app - not sure if we need this - facebook said they now do this automatically
 //        [FBSDKShareDialog showFromViewController:self
 //                                     withContent:content
 //                                        delegate:nil];
-//        self.photo1Error = FBSDKShareReservedErrorCode;
-        self.photo1Error = 200;
+        self.photo1Error = FBSDKShareReservedErrorCode;
+//        self.photo1Error = 200;
 //        NSLog(@"Error code: %ld", (long)FBSDKShareDialogNotAvailableErrorCode);
 //        NSLog(@"Error code: %ld", self.photo1Error);
     
       } if (_image2 != nil) {
-//        FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
-//        photo.image = _image2;
-//        photo.userGenerated = YES;
-//        FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
-//        content.photos = @[photo];
-//        [FBSDKShareAPI shareWithContent:content delegate:nil];
-//        // if no native app
+        FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
+        photo.image = _image2;
+        photo.userGenerated = YES;
+        FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
+        content.photos = @[photo];
+        [FBSDKShareAPI shareWithContent:content delegate:nil];
+//         if no native app - not sure if we need this - facebook said they now do this automatically
 //        [FBSDKShareDialog showFromViewController:self
 //                                     withContent:content
 //                                        delegate:nil];
-//        self.photo2Error = FBSDKShareReservedErrorCode;
-        self.photo2Error = 200;
+        self.photo2Error = FBSDKShareReservedErrorCode;
+//        self.photo2Error = 400;
 //        NSLog(@"Error code: %ld", (long)FBSDKShareDialogNotAvailableErrorCode);
 //        NSLog(@"Error code: %ld", self.photo1Error);
+      
+      // in case user only want to upload 1 photo
+      } if (_image2 == nil) {
+        self.photo2Error = 200;
         
       } if (_image3 != nil) {
-//        FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
-//        photo.image = _image3;
-//        photo.userGenerated = YES;
-//        FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
-//        content.photos = @[photo];
-//        [FBSDKShareAPI shareWithContent:content delegate:nil];
-//        // if no native app
+        FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
+        photo.image = _image3;
+        photo.userGenerated = YES;
+        FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
+        content.photos = @[photo];
+        [FBSDKShareAPI shareWithContent:content delegate:nil];
+//         if no native app - not sure if we need this - facebook said they now do this automatically
 //        [FBSDKShareDialog showFromViewController:self
 //                                     withContent:content
 //                                        delegate:nil];
-        self.photo3Error = 400;
-//        self.photo3Error = FBSDKShareReservedErrorCode;
+        self.photo3Error = FBSDKShareReservedErrorCode;
+//        self.photo3Error = 200;
 //        NSLog(@"Error code: %ld", (long)FBSDKShareDialogNotAvailableErrorCode);
 //        NSLog(@"Error code: %ld", self.photo3Error);
+      
+      // in case user only want to upload 2 photos
+      } if (_image3 == nil) {
+        self.photo3Error = 200;
         
       } if (_image4 != nil) {
-//        FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
-//        photo.image = _image4;
-//        photo.userGenerated = YES;
-//        FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
-//        content.photos = @[photo];
-//        [FBSDKShareAPI shareWithContent:content delegate:nil];
-//        // if no native app
+        FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
+        photo.image = _image4;
+        photo.userGenerated = YES;
+        FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
+        content.photos = @[photo];
+        [FBSDKShareAPI shareWithContent:content delegate:nil];
+//         if no native app - not sure if we need this - facebook said they now do this automatically
 //        [FBSDKShareDialog showFromViewController:self
 //                                     withContent:content
 //                                        delegate:nil];
-        self.photo4Error = 200;
-//        self.photo4Error = FBSDKShareReservedErrorCode;
+        self.photo4Error = FBSDKShareReservedErrorCode;
+//        self.photo4Error = 200;
 //        NSLog(@"Error code: %ld", (long)FBSDKShareDialogNotAvailableErrorCode);
 //        NSLog(@"Error code: %ld", self.photo4Error);
+        
+      // in case user only want to upload 3 photos
+      } if (_image4 == nil) {
+      self.photo4Error = 200;
       }
+      
+      NSLog(@"error1 = %ld", (long)self.photo1Error);
+      NSLog(@"error2 = %ld", (long)self.photo2Error);
+      NSLog(@"error3 = %ld", (long)self.photo3Error);
+      NSLog(@"error4 = %ld", (long)self.photo4Error);
       
       // check to see if there is an error outside of permissions error (which was already addressed by the initial permissions check)
       if ((self.photo1Error > 199 && self.photo1Error < 300) && (self.photo2Error > 199 && self.photo2Error < 300) && (self.photo3Error > 199 && self.photo3Error < 300) && (self.photo4Error > 199 && self.photo4Error < 300)) {
@@ -375,8 +392,14 @@
   _asset = result.firstObject;
     NSLog(@"asset from photo gallery: %@", _asset);
   } else if ([_type isEqualToString:@"camera"]){
-  // creates PHasset for image from camera
-  _asset = [info objectForKey:UIImagePickerControllerMediaMetadata];
+    // first save the image to the device
+//    UIImageWriteToSavedPhotosAlbum([info valueForKey:UIImagePickerControllerOriginalImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    UIImageWriteToSavedPhotosAlbum(_image, nil, nil, nil);
+  // then find the last image saved in order to create a PHasset and put it in the OfferUp Album
+    PHFetchOptions *fetchOptions = [PHFetchOptions new];
+    fetchOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES],];
+    PHFetchResult *cameraResult = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:fetchOptions];
+    _asset = cameraResult.lastObject;
   NSLog(@"We created an asset from camera: %@", _asset);
   }
 
@@ -424,6 +447,16 @@
   [self dismissViewControllerAnimated:YES completion:nil];
 // once a photo has been loaded, the uploadToFbButton is enabled
     uploadToFbButton.enabled = YES;
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+  if (error) {
+    NSLog(@"Image did not save property");
+  } else {
+    NSLog(@"We saved the camera image!");
+  }
+//  [self loadCameraRoll];
 }
 
 - (void)photoLibraryDidChange:(PHChange *)changeInstance

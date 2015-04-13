@@ -13,7 +13,6 @@
 
 @interface ViewController ()
 
-
 @end
 
 @implementation ViewController
@@ -72,7 +71,7 @@
       [_loginToFbButton setTitle:@"Login To Facebook" forState:UIControlStateNormal];
     }
     
-    // this code is in case we want to ask for all the permissions up front. Facebook recommends we seperate them out to locations only when we need them
+    // this code is in case we want to ask for all the permissions up front. Facebook recommends we seperate them out to locations only when we need them, so this has been relocated to the ImageViewController Page
     // else {
 //      // If you ask for multiple permissions once, you should should check if specific permissions missing
 //      if ([result.grantedPermissions containsObject:@"publish_actions"]) {

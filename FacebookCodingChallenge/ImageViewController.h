@@ -19,21 +19,22 @@
   __weak IBOutlet UIButton *button4;
   __weak IBOutlet UIButton *uploadToFbButton;
   __weak IBOutlet UIActivityIndicatorView *spinner;
-  
 }
 
-@property(nonatomic, strong, readonly) PHObjectPlaceholder *placeholderForCreatedAssetCollection;
+// properties used by the UIImagePicker and the buttons
 @property (nonatomic) UIImagePickerControllerSourceType sourceTypeForPicker;
-@property (nonatomic) UIImage *imageNumber;
+@property (nonatomic) NSString *type;
 @property (nonatomic, assign) int buttonNumber;
 @property (nonatomic) UIImage *image;
-@property (nonatomic) NSMutableArray *imagesArray;
-@property (nonatomic) PHFetchResult * images;
-@property (nonatomic) PHCachingImageManager * imageManager;
-//@property (nonatomic) NSString *title;
+
+//@property (nonatomic, strong, readonly) PHObjectPlaceholder *placeholderForCreatedAssetCollection;
+//@property (nonatomic) PHFetchResult * images;
+//@property (nonatomic) PHCachingImageManager * imageManager;
+
+// properties used by the Photos Frameworks assetsCollections
 @property (strong) PHAsset *asset;
 @property (strong) PHAssetCollection *assetCollection;
-@property (nonatomic) NSString *type;
+
 
 - (IBAction)imageButton1Pressed:(id)sender;
 - (IBAction)imageButton2Pressed:(id)sender;
