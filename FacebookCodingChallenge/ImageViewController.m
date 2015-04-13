@@ -134,8 +134,6 @@
   // Action is for the OK button for Album Cover
   [view addAction:OK];
   [self presentViewController:view animated:YES completion:nil];
-  
-
 } // end button1 action
 
 - (IBAction)imageButton2Pressed:(id)sender {
@@ -166,7 +164,7 @@
     [self presentViewController:view animated:YES completion:nil];
     
   } else {
-    // if no camera, set source to PhotoLibrary
+    // if no camera, set source to the device's PhotoLibrary
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [imagePicker setDelegate:self];
     _type = @"gallery";
@@ -203,7 +201,7 @@
     [self presentViewController:view animated:YES completion:nil];
     
   } else {
-    // if no camera, set source to PhotoLibrary
+    // if no camera, set source to the device's PhotoLibrary
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [imagePicker setDelegate:self];
     _type = @"gallery";
@@ -240,7 +238,7 @@
     [self presentViewController:view animated:YES completion:nil];
     
   } else {
-    // if no camera, set source to PhotoLibrary
+    // if no camera, set source to the device's PhotoLibrary
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [imagePicker setDelegate:self];
     _type = @"gallery";
@@ -250,11 +248,15 @@
 } // end button4 action
 
 - (IBAction)uploadToFBButtonPressed:(id)sender {
+  // start the spinner animation
   [spinner startAnimating];
+  
   // Checking for FB permissions first, Facebook now wants you to get specific permissions only when you need them, at specific times when you will use them
   if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"user_photos"]) {
     // publish content/send our photo album
     NSLog(@"we checked if we had access and we do");
+    
+    // double check for publish actions (user_photos comes from permissionToRead, while publish_actions should have come when we logged in)
     if ([[FBSDKAccessToken currentAccessToken] hasGranted:@"publish_actions"]) {
       if (_image1 != nil) {
 //        FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
@@ -353,16 +355,17 @@
     [permissionAlert addAction:Cancel];
     [self presentViewController:permissionAlert animated:YES completion:nil];
   }
-  [spinner stopAnimating];
   }
+    [spinner stopAnimating];
 } // close uploadbutton action
 
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
   _image = [info objectForKey:UIImagePickerControllerOriginalImage];
-  NSLog(@"We got here");
-// not sure why this doesn't work
+// According to the documentation, this should be the call to create an asset, however I could not get it to work, more investgation needed
 //  PHAssetChangeRequest *createAssetRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:_image];
+  
+  // Check for where the image came from (gallery or camera)
   NSLog(@"type: %@", _type);
   if ([_type isEqualToString:@"gallery"]) {
   // creates PHasset from photo gallery
@@ -392,7 +395,7 @@
       }
     }];
   
-  // puts image on the thumbnail back on the screen
+  // puts the images on the thumbnail back on the screen and enabled the next button for selection
   if (_buttonNumber == 1) {
     [button1 setBackgroundImage:_image forState:UIControlStateNormal];
     self.image1 = _image;
@@ -419,7 +422,7 @@
   }
 
   [self dismissViewControllerAnimated:YES completion:nil];
-//  NSLog(@"The picture Dictionary: %@", info);
+// once a photo has been loaded, the uploadToFbButton is enabled
     uploadToFbButton.enabled = YES;
 }
 
@@ -439,11 +442,11 @@
         [updatedCollectionsFetchResults replaceObjectAtIndex:[self.collectionsFetchResults indexOfObject:collectionsFetchResult] withObject:[changeDetails fetchResultAfterChanges]];
       }
     }
-    
   });
-}
+} // close photoLibraryDidChange
 
--(PHAssetCollection*)albumWithTitle:(NSString*)title{
+-(PHAssetCollection*)albumWithTitle:(NSString*)title
+{
   // Check if album exists. If not, create it.
   NSPredicate *predicate = [NSPredicate predicateWithFormat:@"localizedTitle = %@", title];
   PHFetchOptions *options = [[PHFetchOptions alloc]init];
@@ -453,25 +456,7 @@
     return result[0];
   }
   return nil;
-  
-}
-
-
-                         
-//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//  [spinner startAnimating];
-//  if ([segue.identifier isEqualToString:@"SHOW_DONE_PAGE"]) {
-//    
-//
-//    
-//  } // close segue if
-//
-//  // When all the work is done stop the spinner animation and go to the next page
-//  [spinner stopAnimating];
-////  DoneViewController *destinationVC = segue.destinationViewController;
-//  
-//} // close prepare for segue
-
+} // close albumWithTitle
 
 /*
 #pragma mark - Navigation

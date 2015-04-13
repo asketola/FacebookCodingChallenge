@@ -20,14 +20,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+  
+    // added styling features to our UIButtons
   _uploadImagesButton.layer.cornerRadius = 10.0;
   _loginToFbButton.layer.cornerRadius = 10.0;
   _loginToFbButton.enabled = YES;
   [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
-  NSLog(@"ViewDidLoad (do we get 0x1742637c0?)- Is there a token? %@", [FBSDKAccessToken currentAccessToken]);
+  NSLog(@"ViewDidLoad - Is there a token? %@", [FBSDKAccessToken currentAccessToken]);
   
-    // check to see if we are already logged in if not, then login in
+    // check to see if we are already logged in, set the appropriate enablement of the uploadImagesButton and title to the loginToFbButtton
   if ([FBSDKAccessToken currentAccessToken]) {
     _uploadImagesButton.enabled = YES;
     [_loginToFbButton setTitle:@"Logout" forState:UIControlStateNormal];
@@ -36,31 +37,28 @@
     [_loginToFbButton setTitle:@"Login To Facebook" forState:UIControlStateNormal];
     [_loginToFbButton.titleLabel setFont:[UIFont boldSystemFontOfSize:28]];
   }
-
 } // close viewdidload
 
 
 - (IBAction)loginToFbButtonPressed:(id)sender {
   
   if ([FBSDKAccessToken currentAccessToken]) {
-    NSLog(@"If statement (there is should be yes) - Is there a token? %@", [FBSDKAccessToken currentAccessToken]);
+    // If we are logged in, the button should be set to let the user logout
+    NSLog(@"If statement (there is - should be yes) - Is there a token? %@", [FBSDKAccessToken currentAccessToken]);
       FBSDKLoginManager *logOut = [[FBSDKLoginManager alloc]init];
-    [logOut logOut];
-    
-//    [FBSDKAccessToken setCurrentAccessToken:nil];
-//    [FBSDKProfile setCurrentProfile:nil];
-//    [_loginToFbButton setTitle:@"Login To Facebook" forState:UIControlStateNormal];
+      [logOut logOut];
         NSLog(@"Is there a token? %@", [FBSDKAccessToken currentAccessToken]);
     [_loginToFbButton setTitle:@"Login To Facebook" forState:UIControlStateNormal];
     _uploadImagesButton.enabled = NO;
     
   } else  {
+  // If we are logged out, the button should be set to log the user in
   NSLog(@"Else (should be no token) - Is there a token? %@", [FBSDKAccessToken currentAccessToken]);
   FBSDKLoginManager *login = [[FBSDKLoginManager alloc]init];
   [login logInWithPublishPermissions:@[@"publish_actions"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
     _uploadImagesButton.enabled = YES;
     
-     NSLog(@"After LoginManager login (should be yes - 0x174261980???) - Is there a token? %@", [FBSDKAccessToken currentAccessToken]);
+     NSLog(@"After LoginManager login (should be yes) - Is there a token? %@", [FBSDKAccessToken currentAccessToken]);
     [_loginToFbButton setTitle:@"Logout" forState:UIControlStateNormal];
     NSLog(@"Permissions granted = %@", result.grantedPermissions);
     if (error) {
@@ -72,7 +70,10 @@
       // Handle Cancellations - send AlertController to say we need access??
       _uploadImagesButton.enabled = NO;
       [_loginToFbButton setTitle:@"Login To Facebook" forState:UIControlStateNormal];
-    } // else {
+    }
+    
+    // this code is in case we want to ask for all the permissions up front. Facebook recommends we seperate them out to locations only when we need them
+    // else {
 //      // If you ask for multiple permissions once, you should should check if specific permissions missing
 //      if ([result.grantedPermissions containsObject:@"publish_actions"]) {
 //        [login logInWithReadPermissions:@[@"user_photos"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
