@@ -106,7 +106,6 @@
                                 </state>
                                 <connections>
                                     <action selector="uploadToFBButtonPressed:" destination="J2r-Hr-giu" eventType="touchUpInside" id="8gW-vt-bvd"/>
-                                    <segue destination="r1X-Nn-U25" kind="show" identifier="SHOW_DONE_PAGE" id="Nes-eN-37o"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQO-Sf-Ky4">
@@ -175,7 +174,7 @@
                                     <constraint firstAttribute="height" constant="60" id="0lp-mF-WjH"/>
                                     <constraint firstAttribute="width" constant="60" id="ePc-bJ-7tQ"/>
                                 </constraints>
-                                <color key="color" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="color" red="0.4628933170572872" green="0.24844431387176072" blue="0.86334043560606055" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.84753258850000002" green="0.84753258850000002" blue="0.84753258850000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -219,6 +218,7 @@
                         <outlet property="button4" destination="Ipn-rH-o9N" id="Hhh-Dq-R0A"/>
                         <outlet property="spinner" destination="S37-Lu-CgP" id="hVa-Ud-glY"/>
                         <outlet property="uploadToFbButton" destination="sJ8-UQ-275" id="qle-hM-oFQ"/>
+                        <segue destination="r1X-Nn-U25" kind="show" identifier="SHOW_DONE_PAGE" id="ewL-co-Fmv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8gh-WB-f4b" userLabel="First Responder" sceneMemberID="firstResponder"/>
