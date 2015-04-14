@@ -289,7 +289,7 @@
 //                                     withContent:content
 //                                        delegate:nil];
         self.photo2Error = FBSDKShareReservedErrorCode;
-//        self.photo2Error = 400;
+//        self.photo2Error = 200;
 //        NSLog(@"Error code: %ld", (long)FBSDKShareDialogNotAvailableErrorCode);
 //        NSLog(@"Error code: %ld", self.photo1Error);
       
@@ -389,7 +389,13 @@
   // Check for where the image came from (gallery or camera)
   if ([_type isEqualToString:@"gallery"]) {
     
-  // creates PHasset from photo gallery
+  // creates PHasset from photo gallery and adds it
+// could not get this to work
+//  PHAssetChangeRequest *createAssetRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:_image];
+//  PHObjectPlaceholder *assetPlaceholder = createAssetRequest.placeholderForCreatedAsset;
+//    PHAssetCollectionChangeRequest *albumChangeRequest = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:_assetCollection];
+//    [albumChangeRequest addAssets:@[assetPlaceholder]];
+    
   NSURL *url = [info objectForKey:@"UIImagePickerControllerReferenceURL"];
   PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
   NSLog(@"result %@", result);
@@ -399,8 +405,8 @@
   // If the image came from the camera
   } else if ([_type isEqualToString:@"camera"]){
     // first save the image to the device
-//    UIImageWriteToSavedPhotosAlbum([info valueForKey:UIImagePickerControllerOriginalImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-    UIImageWriteToSavedPhotosAlbum(_image, nil, nil, nil);
+    UIImageWriteToSavedPhotosAlbum([info valueForKey:UIImagePickerControllerOriginalImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+//    UIImageWriteToSavedPhotosAlbum(_image, nil, nil, nil);
   // then find the last image saved in order to create a PHasset and put it in the OfferUp Album
     PHFetchOptions *fetchOptions = [PHFetchOptions new];
     fetchOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES],];
@@ -408,21 +414,21 @@
     _asset = cameraResult.lastObject;
   NSLog(@"We created an asset from camera: %@", _asset);
   }
-
+  
   // Add PHAsset to the photo library
   [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
     NSLog(@"We got here");
     PHAssetCollectionChangeRequest *changeRequest = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:_assetCollection];
-//    PHObjectPlaceholder *assetPlaceholder = [createAssetRequest placeholderForCreatedAsset];
-//    [changeRequest addAssets:@[assetPlaceholder]];
+    //    PHObjectPlaceholder *assetPlaceholder = [createAssetRequest placeholderForCreatedAsset];
+    //    [changeRequest addAssets:@[assetPlaceholder]];
     [changeRequest addAssets:@[_asset]];
   } completionHandler:^(BOOL success, NSError *error) {
-      if (success){
-        NSLog(@"Success saving picture to album");
-      } else {
-        NSLog(@"Error creating asset: %@", error);
-      }
-    }];
+    if (success){
+      NSLog(@"Success saving picture to album");
+    } else {
+      NSLog(@"Error creating asset: %@", error);
+    }
+  }];
   
   // puts the images on the thumbnail back on the screen and enabled the next button for selection
   if (_buttonNumber == 1) {
